@@ -8,12 +8,10 @@ const pool = new pg.Pool({
 
 
 
-module.exports.query = (text, values) => {
-  console.log('query:', text, values)
-  return pool.query(text, values)
+module.exports.query = (text, values, cb) => {
+  console.log('query:', text, values);
+  return pool.query(text, values, cb);
 };
-
-
 
 
 // figure out why pg.connect isn't working correctly and how to export this module

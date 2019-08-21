@@ -10,33 +10,57 @@ can perform CRUD operations on the database
 
 function createNewProject (req, res){
 // should create a new Table
-  const testInput = req.body.tableName;
+  const projectName = req.body.projectName.toLowerCase();
+  const clientEmail = req.body.clientEmail.toLowerCase();
+  const projectDescription = req.body.projectDescription.toLowerCase();
+  const insertText = 'INSERT INTO projects (projectName, clientEmail, projectDescription) VALUES($1, $2, $3) RETURNING *';
+  const values = [projectName, clientEmail, projectDescription];
 
-  db.query(`CREATE TABLE IF NOT EXISTS ${testInput}(name varchar)`, (err, result)=>{
-    if (err) return (console.log('Error executing query: ', err));
+  db.query(insertText, values, (err, result) => {
+    if (err) {
+      console.log('Error executing query: ', err);
+      return res.status(500).send(err);
+    }
     else {
-      console.log('query result: ', result);
+      console.log('leaving db.query inside addRowIfExists');
+      return res.status(200).send('row succesfully added to database');
     }
   });
-
-  res.status(200).send('query succesful');
-
 }
+      
+
 
 function getProject (req, res){
-  const testInput = req.body.tableName;
-// should retrieve project from database, or whatever info is requested
-  db.query(`SELECT * FROM ${testInput}`, (err, result)=>{
-      if (err) return (console.log('Error executing query: ', err));
-      else {
-        console.log('query result: ', result);
-      }
-    });
-    res.status(200).send('query succesful');
+  const projectName = req.body.projectName.toLowerCase();
+  const text = `SELECT * FROM projects WHERE projectName='${projectName}'`;
+  db.query(text, (err, result)=>{
+    if (err) {
+      console.log('Error executing query: ', err);
+      return res.status(500).send(err);
+    }
+    else {
+      const searchResults = result.rows;
+      console.log('searchResults: ', searchResults);
+      return res.status(200).send(searchResults);
+    }
+  });
 }
 
-function updateProject (){
-  // should find project in database, and update it
+function updateProject (req, res){
+  const updateInfo = req.body.projectDescription.toLowerCase();
+  const projName = req.body.projectName.toLowerCase();
+  const text = `UPDATE projects SET projectDescription='${updateInfo}' WHERE projectName='${projName}'`;
+
+  db.query(text, (err, result)=>{
+    if (err) {
+      console.log('Error executing query: ', err);
+      return res.status(500).send(err);
+    }
+    else {
+      console.log(result);
+      return res.status(200).send('Project information updated successfully.');
+    }
+  });
 }
 
 function deleteProject (){

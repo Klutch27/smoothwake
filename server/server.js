@@ -13,13 +13,13 @@ app.all('*', bodyparser.urlencoded({
   extended: true
 }));
 
-// app.all('*', bodyparser.json());
+app.all('*', bodyparser.json());
 
 app.get('/getProject', controllers.getProject);
 
 app.post('/newProject', controllers.createNewProject);
 
-app.put('/updateProject', controllers.updateProject);
+app.patch('/updateProject', controllers.updateProject);
 
 app.delete('/deleteProject', controllers.deleteProject);
 
