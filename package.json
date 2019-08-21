@@ -1,0 +1,24 @@
+{
+  "name": "smoothwake",
+  "version": "1.0.0",
+  "description": "designed to help developers keep track of their projects",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^7.12.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Klutch27/smoothwake.git"
+  },
+  "author": "Gareth Leake",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Klutch27/smoothwake/issues"
+  },
+  "homepage": "https://github.com/Klutch27/smoothwake#readme"
+}
