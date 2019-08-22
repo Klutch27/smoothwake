@@ -10,7 +10,10 @@ class ProjectsButton extends Component {
   render(){
     return(
       <div>
-        <button>Projects</button>
+        <button onClick={ ()=> { 
+              console.log('projects button clicked');
+              this.props.function(); 
+              } }>Projects</button>
       </div>
     );
   }

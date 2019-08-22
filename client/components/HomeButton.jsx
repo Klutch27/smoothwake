@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import styles from '../styles.css';
 
-class ClientsButton extends Component {
+class HomeButton extends Component {
   constructor(props){
     super(props);
   }
@@ -11,12 +11,13 @@ class ClientsButton extends Component {
     return(
       <div>
         <button onClick={ ()=> {
-              console.log('clients button clicked');
+              console.log('homeButton clicked');
               this.props.function();
-              } }>Clients</button>
+              } }>Home</button>
       </div>
     );
   }
+
 }
 
-export default ClientsButton;
+export default HomeButton;

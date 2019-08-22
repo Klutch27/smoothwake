@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <div className={'containerDiv'}>
         <div className={'mainDiv'}>
-          <h1>smoothWave</h1>
+          <h1>smoothWake</h1>
         </div>
         <div>
           <ButtonContainer className={'buttonContainer'}/>
