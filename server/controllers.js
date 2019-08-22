@@ -1,12 +1,5 @@
-const db = require('../database/db.js'); // => will this give me access to the various methods that I export? Or do I require in each individual piece??
+const db = require('../database/db.js'); 
 
-/*
-need to require in the database, so that the eventController functions
-can perform CRUD operations on the database
-*/
-
-// retrieval based on input...
-// retrieve by project name? because projects need to be unique...
 
 function createNewProject (req, res){
 // should create a new Table
@@ -46,6 +39,60 @@ function getProject (req, res){
   });
 }
 
+function allProjects (req, res) {
+// return a list of all projects
+  const text = `SELECT * FROM projects`;
+  db.query(text, (err, result)=>{
+    if (err) {
+      console.log('Error executing query: ', err);
+      return res.status(500).send(err);
+    }
+    else {
+      const searchResults = result.rows;
+      console.log('searchResults: ', searchResults);
+      return res.status(200).send(searchResults);
+    }
+  });
+}
+
+function allClients (req, res) {
+// return a list of all clients
+  const text = `SELECT * FROM clients`;
+  db.query(text, (err, result)=>{
+    if (err) {
+      console.log('Error executing query: ', err);
+      return res.status(500).send(err);
+    }
+    else {
+      const searchResults = result.rows;
+      console.log('searchResults: ', searchResults);
+      return res.status(200).send(searchResults);
+    }
+  });
+}
+
+function allClientProjects (req, res){
+  // returns a list of all projects for specified client
+  // const clientName = req.body.clientName;
+  const clientEmail = req.body.clientEmail;
+  const values = [clientEmail];
+
+  const text = `SELECT projects.projectName, projects.projectDescription, clients.clientEmail FROM projects INNER JOIN clients ON clients.clientEmail=projects.clientEmail WHERE projects.clientEmail=$1`;
+ // currently this is returning ALL PROJECTS FROM ALL CLIENT E-MAILS. Need to tweak it so it only returns client projects associated with a specific client e-mail
+  db.query(text, values, (err, result)=>{
+    if (err) {
+      console.log('Error executing query: ', err);
+      return res.status(500).send(err);
+    }
+    else {
+      const searchResults = result.rows;
+      console.log('searchResults: ', searchResults);
+      return res.status(200).send(searchResults);
+    }
+  });
+
+}
+
 function updateProject (req, res){
   const updateInfo = req.body.projectDescription.toLowerCase();
   const projName = req.body.projectName.toLowerCase();
@@ -63,9 +110,21 @@ function updateProject (req, res){
   });
 }
 
-function deleteProject (){
+function deleteProject (req, res){
   // should find project in database, and delete it
+  const projName = req.body.projectName.toLowerCase();
+  const text = `DELETE FROM projects WHERE projectName='${projName}'`;
+  db.query(text, (err, result)=>{
+    if (err) {
+      console.log('Error executing query: ', err);
+      return res.status(500).send(err);
+    }
+    else {
+      console.log(result);
+      return res.status(200).send('Project deleted from database.');
+    }
+  });
 }
 
 
-module.exports = { createNewProject, getProject, updateProject, deleteProject };
+module.exports = { createNewProject, getProject, updateProject, deleteProject, allClientProjects, allProjects, allClients };

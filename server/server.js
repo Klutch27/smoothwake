@@ -17,6 +17,12 @@ app.all('*', bodyparser.json());
 
 app.get('/getProject', controllers.getProject);
 
+app.get('/allProjects', controllers.allProjects);
+
+app.get('/allClients', controllers.allClients);
+
+app.get('/allClientProjects', controllers.allClientProjects);
+
 app.post('/newProject', controllers.createNewProject);
 
 app.patch('/updateProject', controllers.updateProject);
