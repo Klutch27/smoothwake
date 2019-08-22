@@ -74,10 +74,11 @@ function allClients (req, res) {
 function allClientProjects (req, res){
   // returns a list of all projects for specified client
   // const clientName = req.body.clientName;
-  const clientEmail = req.body.clientEmail;
+  const clientEmail = req.body.clientEmail.toLowerCase();
   const values = [clientEmail];
+  console.log('Console log for clientEmail ', clientEmail);
 
-  const text = `SELECT projects.projectName, projects.projectDescription, clients.clientEmail FROM projects INNER JOIN clients ON clients.clientEmail=projects.clientEmail WHERE projects.clientEmail=$1`;
+  const text = `SELECT projects.projectname, projects.projectdescription, clients.clientemail FROM projects INNER JOIN clients ON clients.clientemail=projects.clientemail WHERE projects.clientemail = $1`;
  // currently this is returning ALL PROJECTS FROM ALL CLIENT E-MAILS. Need to tweak it so it only returns client projects associated with a specific client e-mail
   db.query(text, values, (err, result)=>{
     if (err) {
