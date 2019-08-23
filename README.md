@@ -41,4 +41,3 @@ table rows:
 - Butttons on home page work (as of 8.22.19), but the subsequent buttons which will be used to interact with the back-end are not yet functional. Need to build the rest of these components, and then connect them to the back-end.
 - Minimalist styling using CSS.
 - Webpack used to bundle the project.
-===========================
