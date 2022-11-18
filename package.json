@@ -23,7 +23,7 @@
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
     "styles-loader": "^1.0.2",
-    "webpack-cli": "^3.3.7",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.8.0"
   },
   "repository": {
